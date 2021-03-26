@@ -1,0 +1,9 @@
+{
+  "name": "210326_Prototype_1",
+  "version": "1.0.0",
+  "description": "Learning to code chrome extensions!",
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 2
+}
