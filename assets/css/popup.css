@@ -42,7 +42,7 @@ textarea {
   border-color: transparent;
   border: 1px solid #1e1e1e;
   background-color: transparent;
-  /* border-radius: 0 10px 0 10px !important; */
+  /* border-radius: 0 10px 0 10px ; */
 }
 textarea,
 textarea:focus,
@@ -52,7 +52,7 @@ textarea:active {
   -webkit-appearance: none;
 }
 ::placeholder {
-  color: #1e1e1e !important;
+  color: #1e1e1e;
 }
 hr {
   border: 0;
@@ -65,18 +65,36 @@ button,
 button:focus,
 button:active {
   padding: 1em;
-  border: none;
   outline: none;
   cursor: pointer;
   border-radius: 50px;
-  background: transparent;
 }
-.state-on,
-.state-save {
+.save {
+  border: none;
   color: #e1e1e1;
   background: #1e1e1e;
 }
-.state-off {
-  color: #e1e1e1;
+.save:hover {
+  border: none;
+  color: #1e1e1e;
   background: #808080;
+}
+.state-on {
+  color: #1e1e1e;
+  background: transparent;
+  border: 1px solid #1e1e1e;
+}
+.state-on:hover {
+  cursor: auto;
+  pointer-events: default;
+}
+.state-off {
+  color: #808080;
+  background: transparent;
+  border: 1px solid #808080;
+}
+.state-off:hover {
+  color: #e1e1e1;
+  background: #1e1e1e;
+  border: 1px solid #1e1e1e;
 }
