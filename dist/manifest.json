@@ -2,6 +2,16 @@
   "name": "210326_Prototype_1",
   "version": "1.0.0",
   "description": "Learning to code chrome extensions!",
+  "permissions": [
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "https://*/",
+    "http://*/"
+  ],
+  "background": {
+    "scripts": ["js/background.js"]
+  },
   "browser_action": {
     "default_popup": "popup.html"
   },
