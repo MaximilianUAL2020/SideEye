@@ -1,9 +1,9 @@
-// when the extension is first installed, set default values
+// set values on install
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set(
     {
       toggleSitesActive: true,
-      toggleSitesList: "example.com",
+      toggleSitesList: "youtube.com",
     },
     () => {
       console.log("Installed!");
@@ -11,37 +11,34 @@ chrome.runtime.onInstalled.addListener(() => {
   );
 });
 
-// set up initial chrome storage values
+// set initial values
 var toggleSitesActive = false;
-var toggleSitesList = "example.com";
+var toggleSitesList = "youtube.com";
 
 chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], (result) => {
   toggleSitesActive = result.toggleSitesActive;
   toggleSitesList = result.toggleSitesList;
-  console.log(toggleSitesActive, toggleSitesList);
 });
-
-// on each site request, block if it's in toggleSitesList
+// check url on new request
 chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
-    console.log(details);
-    // if the toggle is inactive, don't block anything
-    if (!toggleSitesActive) {
-      return { cancel: false };
+    // if (!toggleSitesActive) {
+    //   return { cancel: false };
+    // }
+    if (toggleSitesActive) {
+      var cancel = toggleSitesList.split(/\n/).some((site) => {
+        var url = new URL(details.url);
+        return Boolean(url.hostname.indexOf(site) !== -1);
+      });
+      if (cancel) send();
     }
-    // determine if the url is in toggleSitesList
-    var cancel = toggleSitesList.split(/\n/).some((site) => {
-      var url = new URL(details.url);
-      return Boolean(url.hostname.indexOf(site) !== -1);
-    });
-    return { cancel: cancel };
+    // return { cancel: cancel };
   },
   {
     urls: ["<all_urls>"],
-  },
-  ["blocking"]
+  }
+  // ["blocking"]
 );
-
 // update local variables
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   if (namespace === "sync") {
@@ -52,7 +49,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
       toggleSitesList = changes.toggleSitesList.newValue;
     }
   }
-  // debubg
+  // debubg mode
   console.log(changes);
   for (var key in changes) {
     var storageChange = changes[key];
@@ -66,3 +63,15 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
     );
   }
 });
+// ping content.js
+function send() {
+  chrome.tabs.query(
+    {
+      active: true,
+      lastFocusedWindow: true,
+    },
+    (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { msg: "block!" }, () => {});
+    }
+  );
+}

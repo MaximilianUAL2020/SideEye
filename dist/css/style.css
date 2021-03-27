@@ -1,0 +1,31 @@
+* {
+  font-size: 12px;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body {
+  width: 200px;
+  color: #1e1e1e;
+  background: #e1e1e1;
+}
+#sideye-wrapper {
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  z-index: 10000000000000000000000000;
+}
+#sideye {
+  width: 30%;
+  height: auto;
+  filter: drop-shadow(0 0 1em black);
+}
+

@@ -7,44 +7,39 @@
   \*********************************/
 /***/ (() => {
 
-// when the extension is first installed, set default values
+// set values on install
 chrome.runtime.onInstalled.addListener(function () {
   chrome.storage.sync.set({
     toggleSitesActive: true,
-    toggleSitesList: "example.com"
+    toggleSitesList: "youtube.com"
   }, function () {
     console.log("Installed!");
   });
-}); // set up initial chrome storage values
+}); // set initial values
 
 var toggleSitesActive = false;
-var toggleSitesList = "example.com";
+var toggleSitesList = "youtube.com";
 chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], function (result) {
   toggleSitesActive = result.toggleSitesActive;
   toggleSitesList = result.toggleSitesList;
-  console.log(toggleSitesActive, toggleSitesList);
-}); // on each site request, block if it's in toggleSitesList
+}); // check url on new request
 
 chrome.webRequest.onBeforeRequest.addListener(function (details) {
-  console.log(details); // if the toggle is inactive, don't block anything
+  // if (!toggleSitesActive) {
+  //   return { cancel: false };
+  // }
+  if (toggleSitesActive) {
+    var cancel = toggleSitesList.split(/\n/).some(function (site) {
+      var url = new URL(details.url);
+      return Boolean(url.hostname.indexOf(site) !== -1);
+    });
+    if (cancel) send();
+  } // return { cancel: cancel };
 
-  if (!toggleSitesActive) {
-    return {
-      cancel: false
-    };
-  } // determine if the url is in toggleSitesList
-
-
-  var cancel = toggleSitesList.split(/\n/).some(function (site) {
-    var url = new URL(details.url);
-    return Boolean(url.hostname.indexOf(site) !== -1);
-  });
-  return {
-    cancel: cancel
-  };
 }, {
   urls: ["<all_urls>"]
-}, ["blocking"]); // update local variables
+} // ["blocking"]
+); // update local variables
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
   if (namespace === "sync") {
@@ -55,7 +50,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
     if (changes.toggleSitesList) {
       toggleSitesList = changes.toggleSitesList.newValue;
     }
-  } // debubg
+  } // debubg mode
 
 
   console.log(changes);
@@ -64,13 +59,24 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
     var storageChange = changes[key];
     console.log('Storage key "%s" in namespace "%s" changed. ' + 'Old value was "%s", new value is "%s".', key, namespace, storageChange.oldValue, storageChange.newValue);
   }
-});
+}); // ping content.js
+
+function send() {
+  chrome.tabs.query({
+    active: true,
+    lastFocusedWindow: true
+  }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {
+      msg: "block!"
+    }, function () {});
+  });
+}
 
 /***/ }),
 
-/***/ "./assets/css/popup.css":
+/***/ "./assets/css/style.css":
 /*!******************************!*\
-  !*** ./assets/css/popup.css ***!
+  !*** ./assets/css/style.css ***!
   \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -167,7 +173,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/dist/js/background": 0,
-/******/ 			"dist/css/popup": 0
+/******/ 			"dist/css/style": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -215,8 +221,8 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["dist/css/popup"], () => (__webpack_require__("./assets/js/background.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["dist/css/popup"], () => (__webpack_require__("./assets/css/popup.css")))
+/******/ 	__webpack_require__.O(undefined, ["dist/css/style"], () => (__webpack_require__("./assets/js/background.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["dist/css/style"], () => (__webpack_require__("./assets/css/style.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

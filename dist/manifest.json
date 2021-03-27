@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "description": "Learning to code chrome extensions!",
   "permissions": [
+    "tabs",
     "storage",
     "webRequest",
     "webRequestBlocking",
     "https://*/",
     "http://*/"
+  ],
+  "content_scripts": [
+    {
+      "js": ["js/content.js"],
+      "matches": ["<all_urls>"]
+    }
   ],
   "background": {
     "scripts": ["js/background.js"]
