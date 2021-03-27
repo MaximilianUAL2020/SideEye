@@ -44,7 +44,27 @@ chrome.webRequest.onBeforeRequest.addListener(function (details) {
   };
 }, {
   urls: ["<all_urls>"]
-}, ["blocking"]);
+}, ["blocking"]); // update local variables
+
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+  if (namespace === "sync") {
+    if (changes.toggleSitesActive) {
+      toggleSitesActive = changes.toggleSitesActive.newValue;
+    }
+
+    if (changes.toggleSitesList) {
+      toggleSitesList = changes.toggleSitesList.newValue;
+    }
+  } // debubg
+
+
+  console.log(changes);
+
+  for (var key in changes) {
+    var storageChange = changes[key];
+    console.log('Storage key "%s" in namespace "%s" changed. ' + 'Old value was "%s", new value is "%s".', key, namespace, storageChange.oldValue, storageChange.newValue);
+  }
+});
 
 /***/ }),
 
