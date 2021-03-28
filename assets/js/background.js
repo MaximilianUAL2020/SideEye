@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set(
     {
-      toggleSitesActive: true,
+      toggleSitesActive: false,
       toggleSitesList: "instagram.com",
     },
     () => {

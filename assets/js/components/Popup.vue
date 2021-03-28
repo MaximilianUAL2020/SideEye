@@ -11,7 +11,14 @@
         autocapitalize="off"
         placeholder="example.com"
       ></textarea>
-      <button type="button" class="save" @click="saveList">Save</button>
+      <button
+        type="button"
+        class="save"
+        :class="{ saved: saved }"
+        @click="saveList"
+      >
+        Save
+      </button>
     </div>
     <hr />
     <div class="buttons">
@@ -37,8 +44,13 @@
 export default {
   data() {
     return {
+      saved: false,
       active: true,
       list: "example.com",
+      icons: {
+        active: "images/48-on.png",
+        inactive: "images/48-off.png",
+      },
     };
   },
   methods: {
@@ -48,11 +60,19 @@ export default {
         {
           toggleSitesActive: active,
         },
-        () => {}
+        () => {
+          chrome.browserAction.setIcon({
+            path: this.icons[active ? "active" : "inactive"],
+          });
+        }
       );
     },
     saveList() {
       chrome.storage.sync.set({ toggleSitesList: this.list }, () => {});
+      this.saved = true;
+      setTimeout(() => {
+        this.saved = false;
+      }, 1000);
     },
   },
   created() {
@@ -71,12 +91,8 @@ export default {
 * {
   font-size: 12px;
   box-sizing: border-box;
+  transition: all 0.2s ease;
   font-family: Arial, Helvetica, sans-serif;
-}
-body {
-  width: 200px;
-  color: #1e1e1e;
-  background: #e1e1e1;
 }
 h1 {
   margin: 0;
@@ -94,7 +110,6 @@ h1 {
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* border: 1px solid green; */
 }
 .buttons {
   gap: 1em;
@@ -111,9 +126,10 @@ textarea {
   resize: none;
   outline: none;
   padding: 1em;
-  background: transparent;
+  color: #e1e1e1;
+  font-weight: bold;
+  background: #1e1e1e;
   border-color: transparent;
-  border: 1px solid #1e1e1e;
 }
 textarea,
 textarea:focus,
@@ -122,6 +138,11 @@ textarea:active {
   -webkit-border-radius: 0;
   -webkit-appearance: none;
 }
+textarea:focus {
+  color: #1e1e1e;
+  background: transparent;
+  border: 1px solid #1e1e1e;
+}
 ::placeholder {
   color: #808080;
 }
@@ -129,8 +150,8 @@ hr {
   border: 0;
   width: 100%;
   height: 1px;
-  background: #808080;
   margin: 1em 0 1em 0;
+  background: #808080;
 }
 button,
 button:focus,
@@ -139,6 +160,10 @@ button:active {
   outline: none;
   cursor: pointer;
   border-radius: 50px;
+}
+.saved {
+  color: lightgreen !important;
+  background: green !important;
 }
 .save {
   border: none;

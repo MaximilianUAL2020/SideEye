@@ -47,32 +47,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      saved: false,
       active: true,
-      list: "example.com"
+      list: "example.com",
+      icons: {
+        active: "images/48-on.png",
+        inactive: "images/48-off.png"
+      }
     };
   },
   methods: {
     setActive: function setActive(active) {
+      var _this = this;
+
       this.active = active;
       chrome.storage.sync.set({
         toggleSitesActive: active
-      }, function () {});
+      }, function () {
+        chrome.browserAction.setIcon({
+          path: _this.icons[active ? "active" : "inactive"]
+        });
+      });
     },
     saveList: function saveList() {
+      var _this2 = this;
+
       chrome.storage.sync.set({
         toggleSitesList: this.list
       }, function () {});
+      this.saved = true;
+      setTimeout(function () {
+        _this2.saved = false;
+      }, 1000);
     }
   },
   created: function created() {
-    var _this = this;
+    var _this3 = this;
 
     chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], function (result) {
-      _this.active = result.toggleSitesActive;
-      _this.list = result.toggleSitesList;
+      _this3.active = result.toggleSitesActive;
+      _this3.list = result.toggleSitesList;
     });
   }
 });
@@ -95,7 +119,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-a8fbc54a] {\n  font-size: 12px;\n  box-sizing: border-box;\n  font-family: Arial, Helvetica, sans-serif;\n}\nbody[data-v-a8fbc54a] {\n  width: 200px;\n  color: #1e1e1e;\n  background: #e1e1e1;\n}\nh1[data-v-a8fbc54a] {\n  margin: 0;\n  padding: 0;\n}\n.wrapper[data-v-a8fbc54a] {\n  gap: 1em;\n  width: 100%;\n  padding: 1em;\n  display: flex;\n  flex-direction: column;\n}\n.block-list[data-v-a8fbc54a] {\n  gap: 2em;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  /* border: 1px solid green; */\n}\n.buttons[data-v-a8fbc54a] {\n  gap: 1em;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n}\nbutton[data-v-a8fbc54a] {\n  width: 100%;\n  padding: 1em;\n}\ntextarea[data-v-a8fbc54a] {\n  width: 100%;\n  resize: none;\n  outline: none;\n  padding: 1em;\n  background: transparent;\n  border-color: transparent;\n  border: 1px solid #1e1e1e;\n}\ntextarea[data-v-a8fbc54a],\ntextarea[data-v-a8fbc54a]:focus,\ntextarea[data-v-a8fbc54a]:active {\n  border-radius: 0;\n  -webkit-border-radius: 0;\n  -webkit-appearance: none;\n}\n[data-v-a8fbc54a]::-moz-placeholder {\n  color: #808080;\n}\n[data-v-a8fbc54a]:-ms-input-placeholder {\n  color: #808080;\n}\n[data-v-a8fbc54a]::placeholder {\n  color: #808080;\n}\nhr[data-v-a8fbc54a] {\n  border: 0;\n  width: 100%;\n  height: 1px;\n  background: #808080;\n  margin: 1em 0 1em 0;\n}\nbutton[data-v-a8fbc54a],\nbutton[data-v-a8fbc54a]:focus,\nbutton[data-v-a8fbc54a]:active {\n  padding: 1em;\n  outline: none;\n  cursor: pointer;\n  border-radius: 50px;\n}\n.save[data-v-a8fbc54a] {\n  border: none;\n  color: #e1e1e1;\n  background: #1e1e1e;\n}\n.save[data-v-a8fbc54a]:hover {\n  border: none;\n  color: #1e1e1e;\n  background: #808080;\n}\n.buttons button[data-v-a8fbc54a] {\n  color: #1e1e1e;\n  background: transparent;\n  border: 1px solid #1e1e1e;\n}\n.is-active[data-v-a8fbc54a] {\n  color: #e1e1e1 !important;\n  background: #1e1e1e !important;\n  border: 1px solid #1e1e1e !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-a8fbc54a] {\n  font-size: 12px;\n  box-sizing: border-box;\n  transition: all 0.2s ease;\n  font-family: Arial, Helvetica, sans-serif;\n}\nh1[data-v-a8fbc54a] {\n  margin: 0;\n  padding: 0;\n}\n.wrapper[data-v-a8fbc54a] {\n  gap: 1em;\n  width: 100%;\n  padding: 1em;\n  display: flex;\n  flex-direction: column;\n}\n.block-list[data-v-a8fbc54a] {\n  gap: 2em;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.buttons[data-v-a8fbc54a] {\n  gap: 1em;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n}\nbutton[data-v-a8fbc54a] {\n  width: 100%;\n  padding: 1em;\n}\ntextarea[data-v-a8fbc54a] {\n  width: 100%;\n  resize: none;\n  outline: none;\n  padding: 1em;\n  color: #e1e1e1;\n  font-weight: bold;\n  background: #1e1e1e;\n  border-color: transparent;\n}\ntextarea[data-v-a8fbc54a],\ntextarea[data-v-a8fbc54a]:focus,\ntextarea[data-v-a8fbc54a]:active {\n  border-radius: 0;\n  -webkit-border-radius: 0;\n  -webkit-appearance: none;\n}\ntextarea[data-v-a8fbc54a]:focus {\n  color: #1e1e1e;\n  background: transparent;\n  border: 1px solid #1e1e1e;\n}\n[data-v-a8fbc54a]::-moz-placeholder {\n  color: #808080;\n}\n[data-v-a8fbc54a]:-ms-input-placeholder {\n  color: #808080;\n}\n[data-v-a8fbc54a]::placeholder {\n  color: #808080;\n}\nhr[data-v-a8fbc54a] {\n  border: 0;\n  width: 100%;\n  height: 1px;\n  margin: 1em 0 1em 0;\n  background: #808080;\n}\nbutton[data-v-a8fbc54a],\nbutton[data-v-a8fbc54a]:focus,\nbutton[data-v-a8fbc54a]:active {\n  padding: 1em;\n  outline: none;\n  cursor: pointer;\n  border-radius: 50px;\n}\n.saved[data-v-a8fbc54a] {\n  color: lightgreen !important;\n  background: green !important;\n}\n.save[data-v-a8fbc54a] {\n  border: none;\n  color: #e1e1e1;\n  background: #1e1e1e;\n}\n.save[data-v-a8fbc54a]:hover {\n  border: none;\n  color: #1e1e1e;\n  background: #808080;\n}\n.buttons button[data-v-a8fbc54a] {\n  color: #1e1e1e;\n  background: transparent;\n  border: 1px solid #1e1e1e;\n}\n.is-active[data-v-a8fbc54a] {\n  color: #e1e1e1 !important;\n  background: #1e1e1e !important;\n  border: 1px solid #1e1e1e !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -618,10 +642,11 @@ var render = function() {
         "button",
         {
           staticClass: "save",
+          class: { saved: _vm.saved },
           attrs: { type: "button" },
           on: { click: _vm.saveList }
         },
-        [_vm._v("Save")]
+        [_vm._v("\n      Save\n    ")]
       )
     ]),
     _vm._v(" "),
