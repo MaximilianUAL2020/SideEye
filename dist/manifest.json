@@ -12,6 +12,7 @@
   ],
   "content_scripts": [
     {
+      "css": ["css/style.css"],
       "js": ["js/content.js"],
       "matches": ["<all_urls>"]
     }

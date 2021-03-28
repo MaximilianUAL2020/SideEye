@@ -1,12 +1,6 @@
-* {
-  font-size: 12px;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-body {
-  width: 200px;
-  color: #1e1e1e;
-  background: #e1e1e1;
+.block {
+  overflow: hidden !important;
+  pointer-events: none !important;
 }
 #sideye-wrapper {
   top: 0;

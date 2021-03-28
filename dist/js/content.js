@@ -2106,35 +2106,59 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-var gifs = [];
-var keywords = ["sideye", "side-eye", "judging"];
-var base = "https://api.giphy.com/v1/gifs/search";
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log("blocking!");
-  if (request) fetchGifs();
-});
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 var parent = document.createElement("div");
 var child = document.createElement("img");
 parent.id = "sideye-wrapper";
 child.id = "sideye";
+var base = "https://api.giphy.com/v1/gifs/search";
+var keywords = ["sideye", "side-eye", "judging"];
+var gifs = [];
+fetchGif();
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  mountGif();
+});
 
-function fetchGifs() {
+function fetchGif() {
   axios__WEBPACK_IMPORTED_MODULE_0___default().get(base, {
     params: {
       api_key: "w47MWINgm4Oj0NO3YClVZMn50IfRtgtI",
       q: randomItem(keywords),
-      limit: "1",
+      limit: "50",
       offset: 0,
       rating: "g",
       lang: "en"
     }
   }).then(function (res) {
-    console.log(res);
-    console.log(res.data.data[0].url);
+    var _iterator = _createForOfIteratorHelper(res.data.data),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var item = _step.value;
+        gifs.push(item.images.original.url);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
   })["catch"](function (err) {
     console.log(err);
   });
+}
+
+function mountGif() {
+  child.src = randomItem(gifs);
+  parent.appendChild(child);
+  document.body.appendChild(parent);
+  document.body.classList.add("block");
 }
 
 function randomItem(array) {
