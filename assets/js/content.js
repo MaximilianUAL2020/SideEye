@@ -4,18 +4,25 @@ const parent = document.createElement("div");
 const child = document.createElement("img");
 parent.id = "sideye-wrapper";
 child.id = "sideye";
+let first = true;
 
 const base = "https://api.giphy.com/v1/gifs/search";
 const keywords = ["sideye", "side-eye", "judging"];
-let gifs = [];
-
-fetchGif();
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  mountGif();
+  if (!first) return;
+  if (
+    window.location.hostname == request.hostname &&
+    location.href != null &&
+    request.state &&
+    request.list
+  ) {
+    mountGif();
+    first = false;
+  }
 });
 
-function fetchGif() {
+function mountGif() {
   axios
     .get(base, {
       params: {
@@ -28,19 +35,18 @@ function fetchGif() {
       },
     })
     .then((res) => {
+      let gifs = [];
       for (const item of res.data.data) {
         gifs.push(item.images.original.url);
       }
+      child.src = randomItem(gifs);
+      parent.appendChild(child);
+      document.body.appendChild(parent);
+      document.body.classList.add("block");
     })
     .catch((err) => {
       console.log(err);
     });
-}
-function mountGif() {
-  child.src = randomItem(gifs);
-  parent.appendChild(child);
-  document.body.appendChild(parent);
-  document.body.classList.add("block");
 }
 function randomItem(array) {
   let randomIndex = Math.floor(Math.random() * Math.floor(array.length));

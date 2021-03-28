@@ -1,9 +1,8 @@
-// set values on install
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set(
     {
       toggleSitesActive: true,
-      toggleSitesList: "youtube.com",
+      toggleSitesList: "instagram.com",
     },
     () => {
       console.log("Installed!");
@@ -11,36 +10,30 @@ chrome.runtime.onInstalled.addListener(() => {
   );
 });
 
-// set initial values
 var toggleSitesActive = false;
-var toggleSitesList = "youtube.com";
+var toggleSitesList = "instagram.com";
 
 chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], (result) => {
   toggleSitesActive = result.toggleSitesActive;
   toggleSitesList = result.toggleSitesList;
 });
-// check url on new request
+
 chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
-    // if (!toggleSitesActive) {
-    //   return { cancel: false };
-    // }
-    if (toggleSitesActive) {
-      var cancel = toggleSitesList.split(/\n/).some((site) => {
-        var url = new URL(details.url);
-        return Boolean(url.hostname.indexOf(site) !== -1);
-      });
-      if (cancel) send();
+    var url = new URL(details.url);
+    if (!toggleSitesActive) {
+      return;
     }
-    // return { cancel: cancel };
+    var cancel = toggleSitesList.split(/\n/).some((site) => {
+      return Boolean(url.hostname.indexOf(site) !== -1);
+    });
+    if (cancel) pingContent(url.hostname);
   },
   {
     urls: ["<all_urls>"],
   }
-  // ["blocking"]
 );
-// update local variables
-chrome.storage.onChanged.addListener(function(changes, namespace) {
+chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === "sync") {
     if (changes.toggleSitesActive) {
       toggleSitesActive = changes.toggleSitesActive.newValue;
@@ -49,29 +42,19 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
       toggleSitesList = changes.toggleSitesList.newValue;
     }
   }
-  // debubg mode
-  console.log(changes);
-  for (var key in changes) {
-    var storageChange = changes[key];
-    console.log(
-      'Storage key "%s" in namespace "%s" changed. ' +
-        'Old value was "%s", new value is "%s".',
-      key,
-      namespace,
-      storageChange.oldValue,
-      storageChange.newValue
-    );
-  }
 });
-// ping content.js
-function send() {
+function pingContent(host) {
   chrome.tabs.query(
     {
       active: true,
-      lastFocusedWindow: true,
+      currentWindow: true,
     },
     (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { msg: "block!" }, () => {});
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        { hostname: host, state: toggleSitesActive, list: toggleSitesList },
+        () => {}
+      );
     }
   );
 }

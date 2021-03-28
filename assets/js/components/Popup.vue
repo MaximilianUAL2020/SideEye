@@ -123,7 +123,7 @@ textarea:active {
   -webkit-appearance: none;
 }
 ::placeholder {
-  color: #1e1e1e;
+  color: #808080;
 }
 hr {
   border: 0;

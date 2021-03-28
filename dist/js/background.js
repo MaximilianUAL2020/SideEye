@@ -7,40 +7,34 @@
   \*********************************/
 /***/ (() => {
 
-// set values on install
 chrome.runtime.onInstalled.addListener(function () {
   chrome.storage.sync.set({
     toggleSitesActive: true,
-    toggleSitesList: "youtube.com"
+    toggleSitesList: "instagram.com"
   }, function () {
     console.log("Installed!");
   });
-}); // set initial values
-
+});
 var toggleSitesActive = false;
-var toggleSitesList = "youtube.com";
+var toggleSitesList = "instagram.com";
 chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], function (result) {
   toggleSitesActive = result.toggleSitesActive;
   toggleSitesList = result.toggleSitesList;
-}); // check url on new request
-
+});
 chrome.webRequest.onBeforeRequest.addListener(function (details) {
-  // if (!toggleSitesActive) {
-  //   return { cancel: false };
-  // }
-  if (toggleSitesActive) {
-    var cancel = toggleSitesList.split(/\n/).some(function (site) {
-      var url = new URL(details.url);
-      return Boolean(url.hostname.indexOf(site) !== -1);
-    });
-    if (cancel) send();
-  } // return { cancel: cancel };
+  var url = new URL(details.url);
 
+  if (!toggleSitesActive) {
+    return;
+  }
+
+  var cancel = toggleSitesList.split(/\n/).some(function (site) {
+    return Boolean(url.hostname.indexOf(site) !== -1);
+  });
+  if (cancel) pingContent(url.hostname);
 }, {
   urls: ["<all_urls>"]
-} // ["blocking"]
-); // update local variables
-
+});
 chrome.storage.onChanged.addListener(function (changes, namespace) {
   if (namespace === "sync") {
     if (changes.toggleSitesActive) {
@@ -50,24 +44,18 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
     if (changes.toggleSitesList) {
       toggleSitesList = changes.toggleSitesList.newValue;
     }
-  } // debubg mode
-
-
-  console.log(changes);
-
-  for (var key in changes) {
-    var storageChange = changes[key];
-    console.log('Storage key "%s" in namespace "%s" changed. ' + 'Old value was "%s", new value is "%s".', key, namespace, storageChange.oldValue, storageChange.newValue);
   }
-}); // ping content.js
+});
 
-function send() {
+function pingContent(host) {
   chrome.tabs.query({
     active: true,
-    lastFocusedWindow: true
+    currentWindow: true
   }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {
-      msg: "block!"
+      hostname: host,
+      state: toggleSitesActive,
+      list: toggleSitesList
     }, function () {});
   });
 }

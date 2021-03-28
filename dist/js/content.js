@@ -2117,15 +2117,19 @@ var parent = document.createElement("div");
 var child = document.createElement("img");
 parent.id = "sideye-wrapper";
 child.id = "sideye";
+var first = true;
 var base = "https://api.giphy.com/v1/gifs/search";
 var keywords = ["sideye", "side-eye", "judging"];
-var gifs = [];
-fetchGif();
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  mountGif();
+  if (!first) return;
+
+  if (window.location.hostname == request.hostname && location.href != null && request.state && request.list) {
+    mountGif();
+    first = false;
+  }
 });
 
-function fetchGif() {
+function mountGif() {
   axios__WEBPACK_IMPORTED_MODULE_0___default().get(base, {
     params: {
       api_key: "w47MWINgm4Oj0NO3YClVZMn50IfRtgtI",
@@ -2136,6 +2140,8 @@ function fetchGif() {
       lang: "en"
     }
   }).then(function (res) {
+    var gifs = [];
+
     var _iterator = _createForOfIteratorHelper(res.data.data),
         _step;
 
@@ -2149,16 +2155,14 @@ function fetchGif() {
     } finally {
       _iterator.f();
     }
+
+    child.src = randomItem(gifs);
+    parent.appendChild(child);
+    document.body.appendChild(parent);
+    document.body.classList.add("block");
   })["catch"](function (err) {
     console.log(err);
   });
-}
-
-function mountGif() {
-  child.src = randomItem(gifs);
-  parent.appendChild(child);
-  document.body.appendChild(parent);
-  document.body.classList.add("block");
 }
 
 function randomItem(array) {
