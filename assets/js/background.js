@@ -1,3 +1,8 @@
+const icons = {
+  active: "../images/48-on.png",
+  inactive: "../images/48-off.png",
+};
+
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set(
     {
@@ -16,6 +21,7 @@ var toggleSitesList = "instagram.com";
 chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], (result) => {
   toggleSitesActive = result.toggleSitesActive;
   toggleSitesList = result.toggleSitesList;
+  setIcon(toggleSitesActive);
 });
 
 chrome.webRequest.onBeforeRequest.addListener(
@@ -58,4 +64,9 @@ function pingContent(host) {
       );
     }
   );
+}
+function setIcon(bool) {
+  chrome.browserAction.setIcon({
+    path: icons[bool ? "active" : "inactive"],
+  });
 }

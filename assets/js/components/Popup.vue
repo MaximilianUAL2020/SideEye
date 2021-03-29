@@ -1,4 +1,4 @@
-<template>
+l<template>
   <div class="main-wrapper">
     <!-- logo -->
     <div class="flex filled">
@@ -60,7 +60,7 @@ export default {
           chrome.browserAction.setIcon({
             path: this.icons[this.active ? "active" : "inactive"],
           });
-        }
+e        }
       );
     },
     saveList() {

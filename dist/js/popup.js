@@ -73,6 +73,7 @@ __webpack_require__.r(__webpack_exports__);
         chrome.browserAction.setIcon({
           path: _this.icons[_this.active ? "active" : "inactive"]
         });
+        e;
       });
     },
     saveList: function saveList() {
