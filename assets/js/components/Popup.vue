@@ -25,8 +25,14 @@
     </div>
     <!-- toggle -->
     <div class="switch">
-      <input checked id="my-switch" type="checkbox" class="switch-checkbox" />
-      <label class="switch-label" for="my-switch" @click="toggleActive"></label>
+      <input
+        id="my-switch"
+        type="checkbox"
+        class="switch-checkbox"
+        @click="toggleActive"
+        v-model="active"
+      />
+      <label class="switch-label" for="my-switch"></label>
     </div>
   </div>
 </template>

@@ -45,6 +45,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -638,15 +644,44 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "switch" }, [
       _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.active,
+            expression: "active"
+          }
+        ],
         staticClass: "switch-checkbox",
-        attrs: { checked: "", id: "my-switch", type: "checkbox" }
+        attrs: { id: "my-switch", type: "checkbox" },
+        domProps: {
+          checked: Array.isArray(_vm.active)
+            ? _vm._i(_vm.active, null) > -1
+            : _vm.active
+        },
+        on: {
+          click: _vm.toggleActive,
+          change: function($event) {
+            var $$a = _vm.active,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = null,
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.active = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.active = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.active = $$c
+            }
+          }
+        }
       }),
       _vm._v(" "),
-      _c("label", {
-        staticClass: "switch-label",
-        attrs: { for: "my-switch" },
-        on: { click: _vm.toggleActive }
-      })
+      _c("label", { staticClass: "switch-label", attrs: { for: "my-switch" } })
     ])
   ])
 }
