@@ -36,6 +36,8 @@ chrome.webRequest.onBeforeRequest.addListener(function (details) {
   urls: ["<all_urls>"]
 });
 chrome.storage.onChanged.addListener(function (changes, namespace) {
+  console.log(changes);
+
   if (namespace === "sync") {
     if (changes.toggleSitesActive) {
       toggleSitesActive = changes.toggleSitesActive.newValue;

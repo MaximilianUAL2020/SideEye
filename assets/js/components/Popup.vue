@@ -1,9 +1,16 @@
 <template>
-  <div class="wrapper">
-    <div class="block-list">
-      <h1>One line per site:</h1>
+  <div class="main-wrapper">
+    <!-- logo -->
+    <div class="flex filled">
+      <span>Hello</span>
+    </div>
+    <!-- instructions -->
+    <div class="flex outline">
+      <span>One line per site</span>
+    </div>
+    <!-- textarea -->
+    <div class="outline" id="no-border">
       <textarea
-        rows="10"
         v-model="list"
         autocorrect="off"
         autocomplete="off"
@@ -11,31 +18,15 @@
         autocapitalize="off"
         placeholder="example.com"
       ></textarea>
-      <button
-        type="button"
-        class="save"
-        :class="{ saved: saved }"
-        @click="saveList"
-      >
-        Save
-      </button>
     </div>
-    <hr />
-    <div class="buttons">
-      <button
-        type="button"
-        @click="setActive(false)"
-        :class="{ 'is-active': !active }"
-      >
-        Off
-      </button>
-      <button
-        type="button"
-        @click="setActive(true)"
-        :class="{ 'is-active': active }"
-      >
-        On
-      </button>
+    <!-- save -->
+    <div class="flex filled">
+      <button type="button" class="save" @click="saveList">Save</button>
+    </div>
+    <!-- toggle -->
+    <div class="switch">
+      <input checked id="my-switch" type="checkbox" class="switch-checkbox" />
+      <label class="switch-label" for="my-switch" @click="toggleActive"></label>
     </div>
   </div>
 </template>
@@ -44,8 +35,7 @@
 export default {
   data() {
     return {
-      saved: false,
-      active: true,
+      active: false,
       list: "example.com",
       icons: {
         active: "images/48-on.png",
@@ -54,25 +44,21 @@ export default {
     };
   },
   methods: {
-    setActive(active) {
-      this.active = active;
+    toggleActive() {
+      this.active = !this.active;
       chrome.storage.sync.set(
         {
-          toggleSitesActive: active,
+          toggleSitesActive: this.active,
         },
         () => {
           chrome.browserAction.setIcon({
-            path: this.icons[active ? "active" : "inactive"],
+            path: this.icons[this.active ? "active" : "inactive"],
           });
         }
       );
     },
     saveList() {
       chrome.storage.sync.set({ toggleSitesList: this.list }, () => {});
-      this.saved = true;
-      setTimeout(() => {
-        this.saved = false;
-      }, 1000);
     },
   },
   created() {
@@ -88,101 +74,142 @@ export default {
 </script>
 
 <style scoped>
-* {
-  font-size: 12px;
-  box-sizing: border-box;
-  transition: all 0.2s ease;
-  font-family: Arial, Helvetica, sans-serif;
-}
-h1 {
-  margin: 0;
-  padding: 0;
-}
-.wrapper {
+.main-wrapper {
   gap: 1em;
   width: 100%;
+  height: 100%;
   padding: 1em;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  background-color: var(--dark-grey);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: var(--master-height) auto auto auto var(--master-height) var(
+      --master-height
+    );
+  grid-template-areas:
+    "logo instructions instructions"
+    "input input input"
+    "input input input"
+    "input input input"
+    "save save save"
+    "toggle toggle toggle";
 }
-.block-list {
-  gap: 2em;
-  width: 100%;
+.flex {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.buttons {
-  gap: 1em;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
+.outline {
+  background: transparent;
+  color: var(--light-grey);
+  border: 1px solid var(--light-grey);
 }
-button {
+.filled {
+  border: none;
+  color: var(--dark-grey);
+  background: var(--light-grey);
+}
+.main-wrapper div {
   width: 100%;
-  padding: 1em;
+  height: 100%;
+}
+.main-wrapper div:nth-of-type(1) {
+  grid-area: logo;
+  border-radius: 100px;
+}
+.main-wrapper div:nth-of-type(2) {
+  border-radius: 100px;
+  grid-area: instructions;
+}
+.main-wrapper div:nth-of-type(3) {
+  grid-area: input;
+  border-radius: 20px;
+}
+.main-wrapper div:nth-of-type(4) {
+  grid-area: save;
+  border-radius: 100px;
+}
+.main-wrapper div:nth-of-type(5) {
+  border: none;
+  grid-area: toggle;
+  position: relative;
+}
+#no-border {
+  border: none !important;
 }
 textarea {
   width: 100%;
+  height: 100%;
+  padding: 1em;
   resize: none;
   outline: none;
-  padding: 1em;
-  color: #e1e1e1;
-  font-weight: bold;
-  background: #1e1e1e;
-  border-color: transparent;
-}
-textarea,
-textarea:focus,
-textarea:active {
-  border-radius: 0;
-  -webkit-border-radius: 0;
-  -webkit-appearance: none;
+  background: transparent;
+  color: var(--light-grey);
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-color: var(--light-grey);
+  transition: border-color 0.2s, color 0.2s;
 }
 textarea:focus {
-  color: #1e1e1e;
-  background: transparent;
-  border: 1px solid #1e1e1e;
+  color: var(--medium-grey);
+  border-color: var(--medium-grey);
 }
 ::placeholder {
-  color: #808080;
-}
-hr {
-  border: 0;
-  width: 100%;
-  height: 1px;
-  margin: 1em 0 1em 0;
-  background: #808080;
+  color: var(--medium-grey);
 }
 button,
 button:focus,
 button:active {
-  padding: 1em;
+  width: 100%;
+  height: 100%;
+  border: none;
   outline: none;
   cursor: pointer;
-  border-radius: 50px;
+  border-radius: inherit;
+  background-color: transparent;
+  transition: all 0.2s;
 }
-.saved {
-  color: lightgreen !important;
-  background: green !important;
+button:hover {
+  cursor: pointer;
+  color: var(--light-grey);
+  background: var(--dark-grey);
+  border: 1px solid var(--light-grey);
+  transition: all 0.2s;
 }
-.save {
-  border: none;
-  color: #e1e1e1;
-  background: #1e1e1e;
+.switch-checkbox {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
 }
-.save:hover {
-  border: none;
-  color: #1e1e1e;
-  background: #808080;
+.switch-label {
+  padding: 0;
+  display: block;
+  cursor: pointer;
+  overflow: hidden;
+  height: var(--master-height);
+  line-height: var(--master-height);
+  border-radius: var(--master-height);
+  border: 1px solid var(--light-grey);
+  transition: all 0.2s;
 }
-.buttons button {
-  color: #1e1e1e;
-  background: transparent;
-  border: 1px solid #1e1e1e;
+.switch-label:before {
+  bottom: 0;
+  margin: 0px;
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 100px;
+  top: var(--myPadding);
+  right: var(--button-end);
+  width: var(--button-height);
+  height: var(--button-height);
+  background: var(--light-grey);
+  transition: all 0.2s;
 }
-.is-active {
-  color: #e1e1e1 !important;
-  background: #1e1e1e !important;
-  border: 1px solid #1e1e1e !important;
+.switch-checkbox:checked + .switch-label {
+  background: var(--light-grey);
+}
+.switch-checkbox:checked + .switch-label:before {
+  right: var(--myPadding);
+  background: var(--dark-grey);
 }
 </style>

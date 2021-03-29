@@ -45,20 +45,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      saved: false,
-      active: true,
+      active: false,
       list: "example.com",
       icons: {
         active: "images/48-on.png",
@@ -67,36 +57,30 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    setActive: function setActive(active) {
+    toggleActive: function toggleActive() {
       var _this = this;
 
-      this.active = active;
+      this.active = !this.active;
       chrome.storage.sync.set({
-        toggleSitesActive: active
+        toggleSitesActive: this.active
       }, function () {
         chrome.browserAction.setIcon({
-          path: _this.icons[active ? "active" : "inactive"]
+          path: _this.icons[_this.active ? "active" : "inactive"]
         });
       });
     },
     saveList: function saveList() {
-      var _this2 = this;
-
       chrome.storage.sync.set({
         toggleSitesList: this.list
       }, function () {});
-      this.saved = true;
-      setTimeout(function () {
-        _this2.saved = false;
-      }, 1000);
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this2 = this;
 
     chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], function (result) {
-      _this3.active = result.toggleSitesActive;
-      _this3.list = result.toggleSitesList;
+      _this2.active = result.toggleSitesActive;
+      _this2.list = result.toggleSitesList;
     });
   }
 });
@@ -119,7 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-a8fbc54a] {\n  font-size: 12px;\n  box-sizing: border-box;\n  transition: all 0.2s ease;\n  font-family: Arial, Helvetica, sans-serif;\n}\nh1[data-v-a8fbc54a] {\n  margin: 0;\n  padding: 0;\n}\n.wrapper[data-v-a8fbc54a] {\n  gap: 1em;\n  width: 100%;\n  padding: 1em;\n  display: flex;\n  flex-direction: column;\n}\n.block-list[data-v-a8fbc54a] {\n  gap: 2em;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.buttons[data-v-a8fbc54a] {\n  gap: 1em;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n}\nbutton[data-v-a8fbc54a] {\n  width: 100%;\n  padding: 1em;\n}\ntextarea[data-v-a8fbc54a] {\n  width: 100%;\n  resize: none;\n  outline: none;\n  padding: 1em;\n  color: #e1e1e1;\n  font-weight: bold;\n  background: #1e1e1e;\n  border-color: transparent;\n}\ntextarea[data-v-a8fbc54a],\ntextarea[data-v-a8fbc54a]:focus,\ntextarea[data-v-a8fbc54a]:active {\n  border-radius: 0;\n  -webkit-border-radius: 0;\n  -webkit-appearance: none;\n}\ntextarea[data-v-a8fbc54a]:focus {\n  color: #1e1e1e;\n  background: transparent;\n  border: 1px solid #1e1e1e;\n}\n[data-v-a8fbc54a]::-moz-placeholder {\n  color: #808080;\n}\n[data-v-a8fbc54a]:-ms-input-placeholder {\n  color: #808080;\n}\n[data-v-a8fbc54a]::placeholder {\n  color: #808080;\n}\nhr[data-v-a8fbc54a] {\n  border: 0;\n  width: 100%;\n  height: 1px;\n  margin: 1em 0 1em 0;\n  background: #808080;\n}\nbutton[data-v-a8fbc54a],\nbutton[data-v-a8fbc54a]:focus,\nbutton[data-v-a8fbc54a]:active {\n  padding: 1em;\n  outline: none;\n  cursor: pointer;\n  border-radius: 50px;\n}\n.saved[data-v-a8fbc54a] {\n  color: lightgreen !important;\n  background: green !important;\n}\n.save[data-v-a8fbc54a] {\n  border: none;\n  color: #e1e1e1;\n  background: #1e1e1e;\n}\n.save[data-v-a8fbc54a]:hover {\n  border: none;\n  color: #1e1e1e;\n  background: #808080;\n}\n.buttons button[data-v-a8fbc54a] {\n  color: #1e1e1e;\n  background: transparent;\n  border: 1px solid #1e1e1e;\n}\n.is-active[data-v-a8fbc54a] {\n  color: #e1e1e1 !important;\n  background: #1e1e1e !important;\n  border: 1px solid #1e1e1e !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.main-wrapper[data-v-a8fbc54a] {\n  gap: 1em;\n  width: 100%;\n  height: 100%;\n  padding: 1em;\n  display: grid;\n  background-color: var(--dark-grey);\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: var(--master-height) auto auto auto var(--master-height) var(\n      --master-height\n    );\n  grid-template-areas:\n    \"logo instructions instructions\"\n    \"input input input\"\n    \"input input input\"\n    \"input input input\"\n    \"save save save\"\n    \"toggle toggle toggle\";\n}\n.flex[data-v-a8fbc54a] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.outline[data-v-a8fbc54a] {\n  background: transparent;\n  color: var(--light-grey);\n  border: 1px solid var(--light-grey);\n}\n.filled[data-v-a8fbc54a] {\n  border: none;\n  color: var(--dark-grey);\n  background: var(--light-grey);\n}\n.main-wrapper div[data-v-a8fbc54a] {\n  width: 100%;\n  height: 100%;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(1) {\n  grid-area: logo;\n  border-radius: 100px;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(2) {\n  border-radius: 100px;\n  grid-area: instructions;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(3) {\n  grid-area: input;\n  border-radius: 20px;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(4) {\n  grid-area: save;\n  border-radius: 100px;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(5) {\n  border: none;\n  grid-area: toggle;\n  position: relative;\n}\n#no-border[data-v-a8fbc54a] {\n  border: none !important;\n}\ntextarea[data-v-a8fbc54a] {\n  width: 100%;\n  height: 100%;\n  padding: 1em;\n  resize: none;\n  outline: none;\n  background: transparent;\n  color: var(--light-grey);\n  border-radius: 20px;\n  -webkit-border-radius: 20px;\n  border-color: var(--light-grey);\n  transition: border-color 0.2s, color 0.2s;\n}\ntextarea[data-v-a8fbc54a]:focus {\n  color: var(--medium-grey);\n  border-color: var(--medium-grey);\n}\n[data-v-a8fbc54a]::-moz-placeholder {\n  color: var(--medium-grey);\n}\n[data-v-a8fbc54a]:-ms-input-placeholder {\n  color: var(--medium-grey);\n}\n[data-v-a8fbc54a]::placeholder {\n  color: var(--medium-grey);\n}\nbutton[data-v-a8fbc54a],\nbutton[data-v-a8fbc54a]:focus,\nbutton[data-v-a8fbc54a]:active {\n  width: 100%;\n  height: 100%;\n  border: none;\n  outline: none;\n  cursor: pointer;\n  border-radius: inherit;\n  background-color: transparent;\n  transition: all 0.2s;\n}\nbutton[data-v-a8fbc54a]:hover {\n  cursor: pointer;\n  color: var(--light-grey);\n  background: var(--dark-grey);\n  border: 1px solid var(--light-grey);\n  transition: all 0.2s;\n}\n.switch-checkbox[data-v-a8fbc54a] {\n  opacity: 0;\n  position: absolute;\n  pointer-events: none;\n}\n.switch-label[data-v-a8fbc54a] {\n  padding: 0;\n  display: block;\n  cursor: pointer;\n  overflow: hidden;\n  height: var(--master-height);\n  line-height: var(--master-height);\n  border-radius: var(--master-height);\n  border: 1px solid var(--light-grey);\n  transition: all 0.2s;\n}\n.switch-label[data-v-a8fbc54a]:before {\n  bottom: 0;\n  margin: 0px;\n  content: \"\";\n  display: block;\n  position: absolute;\n  border-radius: 100px;\n  top: var(--myPadding);\n  right: var(--button-end);\n  width: var(--button-height);\n  height: var(--button-height);\n  background: var(--light-grey);\n  transition: all 0.2s;\n}\n.switch-checkbox:checked + .switch-label[data-v-a8fbc54a] {\n  background: var(--light-grey);\n}\n.switch-checkbox:checked + .switch-label[data-v-a8fbc54a]:before {\n  right: var(--myPadding);\n  background: var(--dark-grey);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -606,10 +590,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "wrapper" }, [
-    _c("div", { staticClass: "block-list" }, [
-      _c("h1", [_vm._v("One line per site:")]),
-      _vm._v(" "),
+  return _c("div", { staticClass: "main-wrapper" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c("div", { staticClass: "outline", attrs: { id: "no-border" } }, [
       _c("textarea", {
         directives: [
           {
@@ -620,7 +606,6 @@ var render = function() {
           }
         ],
         attrs: {
-          rows: "10",
           autocorrect: "off",
           autocomplete: "off",
           spellcheck: "false",
@@ -636,54 +621,53 @@ var render = function() {
             _vm.list = $event.target.value
           }
         }
-      }),
-      _vm._v(" "),
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex filled" }, [
       _c(
         "button",
         {
           staticClass: "save",
-          class: { saved: _vm.saved },
           attrs: { type: "button" },
           on: { click: _vm.saveList }
         },
-        [_vm._v("\n      Save\n    ")]
+        [_vm._v("Save")]
       )
     ]),
     _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("div", { staticClass: "buttons" }, [
-      _c(
-        "button",
-        {
-          class: { "is-active": !_vm.active },
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.setActive(false)
-            }
-          }
-        },
-        [_vm._v("\n      Off\n    ")]
-      ),
+    _c("div", { staticClass: "switch" }, [
+      _c("input", {
+        staticClass: "switch-checkbox",
+        attrs: { checked: "", id: "my-switch", type: "checkbox" }
+      }),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          class: { "is-active": _vm.active },
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.setActive(true)
-            }
-          }
-        },
-        [_vm._v("\n      On\n    ")]
-      )
+      _c("label", {
+        staticClass: "switch-label",
+        attrs: { for: "my-switch" },
+        on: { click: _vm.toggleActive }
+      })
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex filled" }, [
+      _c("span", [_vm._v("Hello")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex outline" }, [
+      _c("span", [_vm._v("One line per site")])
+    ])
+  }
+]
 render._withStripped = true
 
 
