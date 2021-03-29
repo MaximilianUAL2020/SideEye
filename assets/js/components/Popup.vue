@@ -60,7 +60,7 @@ export default {
           chrome.browserAction.setIcon({
             path: this.icons[this.active ? "active" : "inactive"],
           });
-e        }
+        }
       );
     },
     saveList() {
