@@ -27,7 +27,7 @@ chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], (result) => {
 chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
     var url = new URL(details.url);
-    if (!toggleSitesActive) {
+    if (!toggleSitesActive || !toggleSitesList) {
       return;
     }
     var cancel = toggleSitesList.split(/\n/).some((site) => {
@@ -40,7 +40,6 @@ chrome.webRequest.onBeforeRequest.addListener(
   }
 );
 chrome.storage.onChanged.addListener((changes, namespace) => {
-  console.log(changes);
   if (namespace === "sync") {
     if (changes.toggleSitesActive) {
       toggleSitesActive = changes.toggleSitesActive.newValue;
@@ -57,11 +56,11 @@ function pingContent(host) {
       currentWindow: true,
     },
     (tabs) => {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        { hostname: host, state: toggleSitesActive, list: toggleSitesList },
-        () => {}
-      );
+      chrome.tabs.sendMessage(tabs[0].id, {
+        hostname: host,
+        state: toggleSitesActive,
+        list: toggleSitesList,
+      });
     }
   );
 }

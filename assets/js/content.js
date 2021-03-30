@@ -13,13 +13,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (!first) return;
   if (
     window.location.hostname == request.hostname &&
-    location.href != null &&
     request.state &&
     request.list
   ) {
     mountGif();
     first = false;
   }
+  sendResponse("null");
 });
 
 function mountGif() {
@@ -37,7 +37,7 @@ function mountGif() {
     .then((res) => {
       let gifs = [];
       for (const item of res.data.data) {
-        gifs.push(item.images.original.url);
+        gifs.push(item.images.fixed_height_downsampled.url);
       }
       child.src = randomItem(gifs);
       parent.appendChild(child);

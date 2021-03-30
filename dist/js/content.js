@@ -2123,10 +2123,12 @@ var keywords = ["sideye", "side-eye", "judging"];
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (!first) return;
 
-  if (window.location.hostname == request.hostname && location.href != null && request.state && request.list) {
+  if (window.location.hostname == request.hostname && request.state && request.list) {
     mountGif();
     first = false;
   }
+
+  sendResponse("null");
 });
 
 function mountGif() {
@@ -2148,7 +2150,7 @@ function mountGif() {
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var item = _step.value;
-        gifs.push(item.images.original.url);
+        gifs.push(item.images.fixed_height_downsampled.url);
       }
     } catch (err) {
       _iterator.e(err);
