@@ -57,7 +57,6 @@ function pingContent(host) {
     active: true,
     currentWindow: true
   }, function (tabs) {
-    if (tabs[0].id == "undefined") return;
     chrome.tabs.sendMessage(tabs[0].id, {
       hostname: host,
       state: toggleSitesActive,

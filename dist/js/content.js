@@ -2162,6 +2162,7 @@ function mountGif() {
     parent.appendChild(child);
     document.body.appendChild(parent);
     document.body.classList.add("block");
+    document.documentElement.classList.add("block");
   })["catch"](function (err) {
     console.log(err);
   });
