@@ -47,15 +47,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       active: false,
-      list: "example.com",
+      list: "",
       icons: {
         active: "images/48-on.png",
         inactive: "images/48-off.png"
@@ -109,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.main-wrapper[data-v-a8fbc54a] {\n  gap: 1em;\n  width: 100%;\n  height: 100%;\n  padding: 1em;\n  display: grid;\n  background-color: var(--dark-grey);\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: var(--master-height) auto auto auto var(--master-height) var(\n      --master-height\n    );\n  grid-template-areas:\n    \"logo instructions instructions\"\n    \"input input input\"\n    \"input input input\"\n    \"input input input\"\n    \"save save save\"\n    \"toggle toggle toggle\";\n}\n.flex[data-v-a8fbc54a] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.outline[data-v-a8fbc54a] {\n  background: transparent;\n  color: var(--light-grey);\n  border: 1px solid var(--light-grey);\n}\n.filled[data-v-a8fbc54a] {\n  border: none;\n  color: var(--dark-grey);\n  background: var(--light-grey);\n}\n.main-wrapper div[data-v-a8fbc54a] {\n  width: 100%;\n  height: 100%;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(1) {\n  grid-area: logo;\n  border-radius: 100px;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(2) {\n  border-radius: 100px;\n  grid-area: instructions;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(3) {\n  grid-area: input;\n  border-radius: 20px;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(4) {\n  grid-area: save;\n  border-radius: 100px;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(5) {\n  border: none;\n  grid-area: toggle;\n  position: relative;\n}\n#no-border[data-v-a8fbc54a] {\n  border: none !important;\n}\ntextarea[data-v-a8fbc54a] {\n  width: 100%;\n  height: 100%;\n  padding: 1em;\n  resize: none;\n  outline: none;\n  background: transparent;\n  color: var(--light-grey);\n  border-radius: 20px;\n  -webkit-border-radius: 20px;\n  border-color: var(--light-grey);\n  transition: border-color 0.2s, color 0.2s;\n}\ntextarea[data-v-a8fbc54a]:focus {\n  color: var(--medium-grey);\n  border-color: var(--medium-grey);\n}\n[data-v-a8fbc54a]::-moz-placeholder {\n  color: var(--medium-grey);\n}\n[data-v-a8fbc54a]:-ms-input-placeholder {\n  color: var(--medium-grey);\n}\n[data-v-a8fbc54a]::placeholder {\n  color: var(--medium-grey);\n}\nbutton[data-v-a8fbc54a],\nbutton[data-v-a8fbc54a]:focus,\nbutton[data-v-a8fbc54a]:active {\n  width: 100%;\n  height: 100%;\n  border: none;\n  outline: none;\n  cursor: pointer;\n  border-radius: inherit;\n  background-color: transparent;\n  transition: all 0.2s;\n}\nbutton[data-v-a8fbc54a]:hover {\n  cursor: pointer;\n  color: var(--light-grey);\n  background: var(--dark-grey);\n  border: 1px solid var(--light-grey);\n  transition: all 0.2s;\n}\n.switch-checkbox[data-v-a8fbc54a] {\n  opacity: 0;\n  position: absolute;\n  pointer-events: none;\n}\n.switch-label[data-v-a8fbc54a] {\n  padding: 0;\n  display: block;\n  cursor: pointer;\n  overflow: hidden;\n  height: var(--master-height);\n  line-height: var(--master-height);\n  border-radius: var(--master-height);\n  border: 1px solid var(--light-grey);\n  transition: all 0.2s;\n}\n.switch-label[data-v-a8fbc54a]:before {\n  bottom: 0;\n  margin: 0px;\n  content: \"\";\n  display: block;\n  position: absolute;\n  border-radius: 100px;\n  top: var(--myPadding);\n  right: var(--button-end);\n  width: var(--button-height);\n  height: var(--button-height);\n  background: var(--light-grey);\n  transition: all 0.2s;\n}\n.switch-checkbox:checked + .switch-label[data-v-a8fbc54a] {\n  background: var(--light-grey);\n}\n.switch-checkbox:checked + .switch-label[data-v-a8fbc54a]:before {\n  right: var(--myPadding);\n  background: var(--dark-grey);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.main-wrapper[data-v-a8fbc54a] {\n  gap: 1em;\n  width: 100%;\n  height: 100%;\n  padding: 1em;\n  display: grid;\n  background-color: var(--dark-grey);\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: var(--master-height) auto auto auto var(--master-height) var(\n      --master-height\n    );\n  grid-template-areas:\n    \"instructions instructions instructions\"\n    \"input input input\"\n    \"input input input\"\n    \"input input input\"\n    \"save save save\"\n    \"toggle toggle toggle\";\n}\n.flex[data-v-a8fbc54a] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.outline[data-v-a8fbc54a] {\n  background: transparent;\n  color: var(--light-grey);\n  border: 1px solid var(--light-grey);\n}\n.filled[data-v-a8fbc54a] {\n  border: none;\n  color: var(--dark-grey);\n  background: var(--light-grey);\n}\n.main-wrapper div[data-v-a8fbc54a] {\n  width: 100%;\n  height: 100%;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(1) {\n  border-radius: 100px;\n  grid-area: instructions;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(2) {\n  grid-area: input;\n  border-radius: 20px;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(3) {\n  grid-area: save;\n  border-radius: 100px;\n}\n.main-wrapper div[data-v-a8fbc54a]:nth-of-type(4) {\n  border: none;\n  grid-area: toggle;\n  position: relative;\n}\n#no-border[data-v-a8fbc54a] {\n  border: none !important;\n}\ntextarea[data-v-a8fbc54a] {\n  width: 100%;\n  height: 100%;\n  padding: 1em;\n  resize: none;\n  outline: none;\n  background: transparent;\n  color: var(--light-grey);\n  border-radius: 20px;\n  -webkit-border-radius: 20px;\n  border-color: var(--light-grey);\n  transition: border-color 0.2s, color 0.2s;\n}\ntextarea[data-v-a8fbc54a]:focus {\n  color: var(--medium-grey);\n  border-color: var(--medium-grey);\n}\n[data-v-a8fbc54a]::-moz-placeholder {\n  color: var(--medium-grey);\n}\n[data-v-a8fbc54a]:-ms-input-placeholder {\n  color: var(--medium-grey);\n}\n[data-v-a8fbc54a]::placeholder {\n  color: var(--medium-grey);\n}\nbutton[data-v-a8fbc54a],\nbutton[data-v-a8fbc54a]:focus,\nbutton[data-v-a8fbc54a]:active {\n  width: 100%;\n  height: 100%;\n  border: none;\n  outline: none;\n  cursor: pointer;\n  border-radius: inherit;\n  color: var(--dark-grey);\n  background-color: transparent;\n  transition: all 0.2s;\n}\nbutton[data-v-a8fbc54a]:hover {\n  cursor: pointer;\n  color: var(--light-grey);\n  background: var(--dark-grey);\n  border: 1px solid var(--light-grey);\n  transition: all 0.2s;\n}\n.switch-checkbox[data-v-a8fbc54a] {\n  opacity: 0;\n  position: absolute;\n  pointer-events: none;\n}\n.switch-label[data-v-a8fbc54a] {\n  padding: 0;\n  display: block;\n  cursor: pointer;\n  overflow: hidden;\n  height: var(--master-height);\n  line-height: var(--master-height);\n  border-radius: var(--master-height);\n  border: 1px solid var(--light-grey);\n  transition: all 0.2s;\n}\n.switch-label[data-v-a8fbc54a]:before {\n  bottom: 0;\n  margin: 0px;\n  content: \"\";\n  display: block;\n  position: absolute;\n  border-radius: 100px;\n  top: var(--myPadding);\n  right: var(--button-end);\n  width: var(--button-height);\n  height: var(--button-height);\n  background: var(--light-grey);\n  transition: all 0.2s;\n}\n.switch-checkbox:checked + .switch-label[data-v-a8fbc54a] {\n  background: var(--light-grey);\n}\n.switch-checkbox:checked + .switch-label[data-v-a8fbc54a]:before {\n  right: var(--myPadding);\n  background: var(--dark-grey);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -599,8 +595,6 @@ var render = function() {
   return _c("div", { staticClass: "main-wrapper" }, [
     _vm._m(0),
     _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
     _c("div", { staticClass: "outline", attrs: { id: "no-border" } }, [
       _c("textarea", {
         directives: [
@@ -686,14 +680,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex filled" }, [
-      _c("span", [_vm._v("Icon")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

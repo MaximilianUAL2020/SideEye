@@ -1,9 +1,5 @@
 l<template>
   <div class="main-wrapper">
-    <!-- logo -->
-    <div class="flex filled">
-      <span>Icon</span>
-    </div>
     <!-- instructions -->
     <div class="flex outline">
       <span>One line per site</span>
@@ -42,7 +38,7 @@ export default {
   data() {
     return {
       active: false,
-      list: "example.com",
+      list: "",
       icons: {
         active: "images/48-on.png",
         inactive: "images/48-off.png",
@@ -95,7 +91,7 @@ export default {
       --master-height
     );
   grid-template-areas:
-    "logo instructions instructions"
+    "instructions instructions instructions"
     "input input input"
     "input input input"
     "input input input"
@@ -122,22 +118,18 @@ export default {
   height: 100%;
 }
 .main-wrapper div:nth-of-type(1) {
-  grid-area: logo;
-  border-radius: 100px;
-}
-.main-wrapper div:nth-of-type(2) {
   border-radius: 100px;
   grid-area: instructions;
 }
-.main-wrapper div:nth-of-type(3) {
+.main-wrapper div:nth-of-type(2) {
   grid-area: input;
   border-radius: 20px;
 }
-.main-wrapper div:nth-of-type(4) {
+.main-wrapper div:nth-of-type(3) {
   grid-area: save;
   border-radius: 100px;
 }
-.main-wrapper div:nth-of-type(5) {
+.main-wrapper div:nth-of-type(4) {
   border: none;
   grid-area: toggle;
   position: relative;
@@ -174,6 +166,7 @@ button:active {
   outline: none;
   cursor: pointer;
   border-radius: inherit;
+  color: var(--dark-grey);
   background-color: transparent;
   transition: all 0.2s;
 }
