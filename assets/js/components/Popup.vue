@@ -64,7 +64,10 @@ export default {
       );
     },
     saveList() {
-      chrome.storage.sync.set({ toggleSitesList: this.list }, () => {});
+      chrome.storage.sync.set(
+        { toggleSitesList: this.list.toLowerCase() },
+        () => {}
+      );
     },
   },
   created() {

@@ -77,7 +77,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     saveList: function saveList() {
       chrome.storage.sync.set({
-        toggleSitesList: this.list
+        toggleSitesList: this.list.toLowerCase()
       }, function () {});
     }
   },

@@ -11,11 +11,7 @@ const keywords = ["sideye", "side-eye", "judging"];
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (!first) return;
-  if (
-    window.location.hostname == request.hostname &&
-    request.state &&
-    request.list
-  ) {
+  if (window.location.hostname == request.hostname) {
     mountGif();
     first = false;
   }

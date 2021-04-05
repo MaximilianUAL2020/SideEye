@@ -26,15 +26,16 @@ chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], function (resu
   toggleSitesList = result.toggleSitesList;
   setIcon(toggleSitesActive);
 });
-chrome.webRequest.onBeforeRequest.addListener(function (details) {
+chrome.webRequest.onCompleted.addListener(function (details) {
   var url = new URL(details.url);
+  console.log(url.hostname);
 
   if (!toggleSitesActive || !toggleSitesList) {
     return;
   }
 
   var cancel = toggleSitesList.split(/\n/).some(function (site) {
-    return Boolean(url.hostname.indexOf(site) !== -1);
+    return url.hostname.indexOf(site) !== -1;
   });
   if (cancel) pingContent(url.hostname);
 }, {
@@ -57,10 +58,8 @@ function pingContent(host) {
     active: true,
     currentWindow: true
   }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {
-      hostname: host,
-      state: toggleSitesActive,
-      list: toggleSitesList
+    if (tabs[0] != "undefined") chrome.tabs.sendMessage(tabs[0].id, {
+      hostname: host
     });
   });
 }
