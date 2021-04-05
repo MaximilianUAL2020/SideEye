@@ -2126,7 +2126,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (window.location.hostname == request.hostname) {
     mountGif();
     first = false;
-    console.log(request.hostname, window.location.hostname);
   }
 
   sendResponse("null");

@@ -7,7 +7,7 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set(
     {
       toggleSitesActive: false,
-      toggleSitesList: "instagram.com",
+      toggleSitesList: "",
     },
     () => {
       console.log("Installed!");
@@ -16,7 +16,7 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 var toggleSitesActive = false;
-var toggleSitesList = "instagram.com";
+var toggleSitesList = "";
 
 chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], (result) => {
   toggleSitesActive = result.toggleSitesActive;
@@ -24,7 +24,7 @@ chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], (result) => {
   setIcon(toggleSitesActive);
 });
 
-chrome.webRequest.onCompleted.addListener(
+chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
     var url = new URL(details.url);
     if (!toggleSitesActive || !toggleSitesList) {

@@ -2,7 +2,7 @@ l<template>
   <div class="main-wrapper">
     <!-- logo -->
     <div class="flex filled">
-      <span>Hello</span>
+      <span>Icon</span>
     </div>
     <!-- instructions -->
     <div class="flex outline">

@@ -14,21 +14,20 @@ var icons = {
 chrome.runtime.onInstalled.addListener(function () {
   chrome.storage.sync.set({
     toggleSitesActive: false,
-    toggleSitesList: "instagram.com"
+    toggleSitesList: ""
   }, function () {
     console.log("Installed!");
   });
 });
 var toggleSitesActive = false;
-var toggleSitesList = "instagram.com";
+var toggleSitesList = "";
 chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], function (result) {
   toggleSitesActive = result.toggleSitesActive;
   toggleSitesList = result.toggleSitesList;
   setIcon(toggleSitesActive);
 });
-chrome.webRequest.onCompleted.addListener(function (details) {
+chrome.webRequest.onBeforeRequest.addListener(function (details) {
   var url = new URL(details.url);
-  console.log(url.hostname);
 
   if (!toggleSitesActive || !toggleSitesList) {
     return;
