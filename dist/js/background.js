@@ -1874,13 +1874,6 @@ chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], function (resu
   toggleSitesList = result.toggleSitesList;
   setIcon(toggleSitesActive);
 });
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.msg == "gif") {
-    sendResponse({
-      url: randomItem(gifs)
-    });
-  }
-});
 chrome.webRequest.onBeforeRequest.addListener(function (details) {
   var url = new URL(details.url);
 
@@ -1913,7 +1906,8 @@ function pingContent(host) {
     currentWindow: true
   }, function (tabs) {
     if (tabs[0] != "undefined") chrome.tabs.sendMessage(tabs[0].id, {
-      hostname: host
+      hostname: host,
+      url: randomItem(gifs)
     });
   });
 }

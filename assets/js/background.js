@@ -30,11 +30,6 @@ chrome.storage.sync.get(["toggleSitesActive", "toggleSitesList"], (result) => {
   toggleSitesList = result.toggleSitesList;
   setIcon(toggleSitesActive);
 });
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.msg == "gif") {
-    sendResponse({ url: randomItem(gifs) });
-  }
-});
 chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
     var url = new URL(details.url);
@@ -70,6 +65,7 @@ function pingContent(host) {
       if (tabs[0] != "undefined")
         chrome.tabs.sendMessage(tabs[0].id, {
           hostname: host,
+          url: randomItem(gifs),
         });
     }
   );

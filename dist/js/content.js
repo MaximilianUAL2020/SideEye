@@ -16,25 +16,21 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (!first || allow) return;
 
   if (window.location.hostname == request.hostname) {
-    mountGif();
+    mountGif(request.url);
     first = false;
   }
 
   sendResponse(null);
 });
 
-function mountGif() {
-  chrome.runtime.sendMessage({
-    msg: "gif"
-  }, function (res) {
-    gif.src = res.url;
-    wrapper.appendChild(gif);
-    wrapper.appendChild(enter);
-    document.body.appendChild(wrapper);
-    document.body.classList.add("block");
-    document.documentElement.classList.add("block");
-    removeGif();
-  });
+function mountGif(res) {
+  gif.src = res;
+  wrapper.appendChild(gif);
+  wrapper.appendChild(enter);
+  document.body.appendChild(wrapper);
+  document.body.classList.add("block");
+  document.documentElement.classList.add("block");
+  removeGif();
 }
 
 function removeGif() {
