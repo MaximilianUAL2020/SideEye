@@ -1,52 +1,41 @@
-import axios from "axios";
+const wrapper = document.createElement("div");
+const enter = document.createElement("button");
+const gif = document.createElement("img");
 
-const parent = document.createElement("div");
-const child = document.createElement("img");
-parent.id = "sideye-wrapper";
-child.id = "sideye";
+wrapper.id = "sideye-wrapper";
+enter.textContent = "Enter";
+enter.id = "enter";
+gif.id = "sideye";
+
 let first = true;
-
-const base = "https://api.giphy.com/v1/gifs/search";
-const keywords = ["sideye", "side-eye", "judging"];
+let allow = false;
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (!first) return;
+  if (!first || allow) return;
   if (window.location.hostname == request.hostname) {
     mountGif();
     first = false;
   }
-  sendResponse("null");
+  sendResponse(null);
 });
 
 function mountGif() {
-  axios
-    .get(base, {
-      params: {
-        api_key: "w47MWINgm4Oj0NO3YClVZMn50IfRtgtI",
-        q: randomItem(keywords),
-        limit: "50",
-        offset: 0,
-        rating: "g",
-        lang: "en",
-      },
-    })
-    .then((res) => {
-      let gifs = [];
-      for (const item of res.data.data) {
-        gifs.push(item.images.fixed_height_downsampled.url);
-      }
-      child.src = randomItem(gifs);
-      parent.appendChild(child);
-      document.body.appendChild(parent);
-      document.body.classList.add("block");
-      document.documentElement.classList.add("block");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  chrome.runtime.sendMessage({ msg: "gif" }, (res) => {
+    gif.src = res.url;
+    wrapper.appendChild(gif);
+    wrapper.appendChild(enter);
+    document.body.appendChild(wrapper);
+    document.body.classList.add("block");
+    document.documentElement.classList.add("block");
+    removeGif();
+  });
 }
-function randomItem(array) {
-  let randomIndex = Math.floor(Math.random() * Math.floor(array.length));
-  let item = array[randomIndex];
-  return item;
+function removeGif() {
+  document.getElementById("enter").addEventListener("click", () => {
+    let obj = document.getElementById("sideye-wrapper");
+    document.documentElement.classList.remove("block");
+    document.body.classList.remove("block");
+    obj.remove();
+    allow = true;
+  });
 }
