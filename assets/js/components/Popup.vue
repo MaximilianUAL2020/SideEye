@@ -1,7 +1,7 @@
-l<template>
+<template>
   <div class="main-wrapper">
     <!-- instructions -->
-    <div class="flex outline">
+    <div class="flex filled no-select">
       <span>One line per site</span>
     </div>
     <!-- textarea -->
@@ -16,11 +16,11 @@ l<template>
       ></textarea>
     </div>
     <!-- save -->
-    <div class="flex filled">
+    <div class="flex filled no-select">
       <button type="button" class="save" @click="saveList">Save</button>
     </div>
     <!-- toggle -->
-    <div class="switch">
+    <div class="switch no-select">
       <input
         id="my-switch"
         type="checkbox"
@@ -164,6 +164,14 @@ textarea:focus {
 ::selection {
   background: var(--light);
   color: var(--bg);
+}
+.no-select {
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 button,
 button:focus,
