@@ -85,7 +85,7 @@ export default {
   height: 100%;
   padding: 1em;
   display: grid;
-  background-color: var(--dark-grey);
+  background-color: var(--bg);
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: var(--master-height) auto auto auto var(--master-height) var(
       --master-height
@@ -105,13 +105,13 @@ export default {
 }
 .outline {
   background: transparent;
-  color: var(--light-grey);
-  border: 1px solid var(--light-grey);
+  color: var(--light);
+  border: 1px solid var(--light);
 }
 .filled {
   border: none;
-  color: var(--dark-grey);
-  background: var(--light-grey);
+  color: var(--bg);
+  background: var(--light);
 }
 .main-wrapper div {
   width: 100%;
@@ -144,18 +144,26 @@ textarea {
   resize: none;
   outline: none;
   background: transparent;
-  color: var(--light-grey);
+  color: var(--light);
   border-radius: 20px;
   -webkit-border-radius: 20px;
-  border-color: var(--light-grey);
+  border-color: var(--light);
   transition: border-color 0.2s, color 0.2s;
 }
 textarea:focus {
-  color: var(--medium-grey);
-  border-color: var(--medium-grey);
+  color: var(--medium);
+  border-color: var(--medium);
 }
 ::placeholder {
-  color: var(--medium-grey);
+  color: var(--medium);
+}
+::-moz-selection {
+  background: var(--light);
+  color: var(--bg);
+}
+::selection {
+  background: var(--light);
+  color: var(--bg);
 }
 button,
 button:focus,
@@ -165,16 +173,16 @@ button:active {
   border: none;
   outline: none;
   cursor: pointer;
+  color: var(--bg);
   border-radius: inherit;
-  color: var(--dark-grey);
   background-color: transparent;
   transition: all 0.2s;
 }
 button:hover {
   cursor: pointer;
-  color: var(--light-grey);
-  background: var(--dark-grey);
-  border: 1px solid var(--light-grey);
+  color: var(--light);
+  background: var(--bg);
+  border: 1px solid var(--light);
   transition: all 0.2s;
 }
 .switch-checkbox {
@@ -190,7 +198,7 @@ button:hover {
   height: var(--master-height);
   line-height: var(--master-height);
   border-radius: var(--master-height);
-  border: 1px solid var(--light-grey);
+  border: 1px solid var(--light);
   transition: all 0.2s;
 }
 .switch-label:before {
@@ -204,14 +212,14 @@ button:hover {
   right: var(--button-end);
   width: var(--button-height);
   height: var(--button-height);
-  background: var(--light-grey);
+  background: var(--light);
   transition: all 0.2s;
 }
 .switch-checkbox:checked + .switch-label {
-  background: var(--light-grey);
+  background: var(--light);
 }
 .switch-checkbox:checked + .switch-label:before {
   right: var(--myPadding);
-  background: var(--dark-grey);
+  background: var(--bg);
 }
 </style>

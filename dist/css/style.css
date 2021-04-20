@@ -1,5 +1,8 @@
+:root {
+  --medium: #9683d1;
+}
 html {
-  background-color: white;
+  background: white;
 }
 .block {
   overflow: hidden !important;
