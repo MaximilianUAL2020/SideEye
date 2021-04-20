@@ -37,7 +37,6 @@ html {
   border: none !important;
   border-radius: 0px !important;
   pointer-events: none !important;
-  /* filter: drop-shadow(0 0 1em black) !important; */
 }
 #enter {
   padding: 1em !important;
