@@ -20,6 +20,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 function mountGif(res) {
+  setFont();
   gif.src = res;
   wrapper.appendChild(gif);
   wrapper.appendChild(enter);
@@ -36,4 +37,11 @@ function removeGif() {
     obj.remove();
     allow = true;
   });
+}
+function setFont() {
+  var style = document.createElement("style");
+  style.textContent = `@font-face{font-family: Space-Mono; src: url("${chrome.extension.getURL(
+    "ttf/Space.ttf"
+  )}");}`;
+  document.head.appendChild(style);
 }

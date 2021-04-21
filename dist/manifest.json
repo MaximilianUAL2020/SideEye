@@ -26,6 +26,7 @@
   "background": {
     "scripts": ["js/background.js"]
   },
+  "web_accessible_resources": ["ttf/Space.ttf"],
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": "images/48-off.png"
