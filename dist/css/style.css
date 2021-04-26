@@ -1,6 +1,3 @@
-html {
-  background: white;
-}
 .block {
   overflow: hidden !important;
   pointer-events: none !important;
@@ -41,7 +38,7 @@ html {
   padding: 1em !important;
   color: white !important;
   font-size: 16px !important;
-  border-radius: 10px !important;
+  border-radius: 50px !important;
   pointer-events: auto !important;
   background: transparent !important;
   font-family: Space-Mono !important;
