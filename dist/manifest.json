@@ -1,7 +1,7 @@
 {
-  "name": "210326_Build_1",
+  "name": "SideEye",
   "version": "1.0.0",
-  "description": "Learning to code chrome extensions!",
+  "description": "Blacklist distracting websites and stay on top of your productivity.",
   "permissions": [
     "tabs",
     "storage",
