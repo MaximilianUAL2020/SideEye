@@ -4,8 +4,8 @@
     "/dist/js/popup.js": "/dist/js/popup.js",
     "/dist/css/style.css": "/dist/css/style.css",
     "/dist/css/popup.css": "/dist/css/popup.css",
-    "/dist/images/128.png": "/dist/images/128.png",
-    "/dist/images/16.png": "/dist/images/16.png",
-    "/dist/images/48-off.png": "/dist/images/48-off.png",
-    "/dist/images/48-on.png": "/dist/images/48-on.png"
+    "/dist/icons/128.png": "/dist/icons/128.png",
+    "/dist/icons/16.png": "/dist/icons/16.png",
+    "/dist/icons/48-off.png": "/dist/icons/48-off.png",
+    "/dist/icons/48-on.png": "/dist/icons/48-on.png"
 }

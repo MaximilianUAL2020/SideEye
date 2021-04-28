@@ -36,10 +36,9 @@ function mountGif(res) {
 
 function removeGif() {
   document.getElementById("enter").addEventListener("click", function () {
-    var obj = document.getElementById("sideye-wrapper");
     document.documentElement.classList.remove("block");
     document.body.classList.remove("block");
-    obj.remove();
+    wrapper.remove();
     allow = true;
   });
 }

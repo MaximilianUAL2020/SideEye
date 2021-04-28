@@ -3,8 +3,8 @@ import axios from "axios";
 const base = "https://api.giphy.com/v1/gifs/search";
 const keywords = ["sideye", "side-eye", "judging"];
 const icons = {
-  active: "../images/48-on.png",
-  inactive: "../images/48-off.png",
+  active: "../icons/48-on.png",
+  inactive: "../icons/48-off.png",
 };
 
 chrome.runtime.onInstalled.addListener(() => {

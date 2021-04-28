@@ -53,8 +53,8 @@ __webpack_require__.r(__webpack_exports__);
       active: false,
       list: "",
       icons: {
-        active: "images/48-on.png",
-        inactive: "images/48-off.png"
+        active: "icons/48-on.png",
+        inactive: "icons/48-off.png"
       }
     };
   },

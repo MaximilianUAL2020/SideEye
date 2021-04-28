@@ -1854,8 +1854,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 var base = "https://api.giphy.com/v1/gifs/search";
 var keywords = ["sideye", "side-eye", "judging"];
 var icons = {
-  active: "../images/48-on.png",
-  inactive: "../images/48-off.png"
+  active: "../icons/48-on.png",
+  inactive: "../icons/48-off.png"
 };
 chrome.runtime.onInstalled.addListener(function () {
   chrome.storage.sync.set({
