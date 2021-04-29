@@ -1,12 +1,11 @@
 {
   "name": "SideEye",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Experience a moment of judgment while visiting distracting websites.",
   "permissions": [
     "tabs",
     "storage",
     "webRequest",
-    "webRequestBlocking",
     "https://*/",
     "http://*/"
   ],
