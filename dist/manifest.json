@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Experience a moment of judgment while visiting distracting websites.",
   "permissions": [
-    "tabs",
     "storage",
+    "activeTab",
     "webRequest",
     "https://*/",
     "http://*/"
@@ -25,7 +25,7 @@
   "background": {
     "scripts": ["js/background.js"]
   },
-  "web_accessible_resources": ["ttf/Space.ttf"],
+  "web_accessible_resources": ["ttf/Space.ttf", "icons/giphy.gif"],
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": "icons/48-off.png"

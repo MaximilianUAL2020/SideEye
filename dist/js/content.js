@@ -5,10 +5,12 @@ var __webpack_exports__ = {};
   \******************************/
 var wrapper = document.createElement("div");
 var enter = document.createElement("button");
+var logo = document.createElement("img");
 var gif = document.createElement("img");
 wrapper.id = "sideye-wrapper";
 enter.textContent = "Enter";
 enter.id = "enter";
+logo.id = "giphyLogo";
 gif.id = "sideye";
 var first = true;
 var allow = false;
@@ -26,7 +28,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 function mountGif(res) {
   setFont();
   gif.src = res;
+  logo.src = chrome.extension.getURL("icons/giphy.gif");
   wrapper.appendChild(gif);
+  wrapper.appendChild(logo);
   wrapper.appendChild(enter);
   document.body.appendChild(wrapper);
   document.body.classList.add("block");

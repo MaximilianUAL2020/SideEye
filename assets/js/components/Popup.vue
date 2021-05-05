@@ -150,6 +150,9 @@ textarea {
   border-color: var(--light);
   transition: border-color 0.2s, color 0.2s;
 }
+textarea::-webkit-scrollbar {
+  display: none;
+}
 textarea:focus {
   color: var(--medium);
   border-color: var(--medium);

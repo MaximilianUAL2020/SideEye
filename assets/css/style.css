@@ -43,6 +43,13 @@
   font-family: Space-Mono !important;
   border: 1px solid white !important;
 }
+#giphyLogo {
+  right: 20px !important;
+  bottom: 20px !important;
+  width: 100px !important;
+  height: auto !important;
+  position: fixed !important;
+}
 button,
 button:focus,
 button:hover {

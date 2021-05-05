@@ -1,10 +1,12 @@
 const wrapper = document.createElement("div");
 const enter = document.createElement("button");
+const logo = document.createElement("img");
 const gif = document.createElement("img");
 
 wrapper.id = "sideye-wrapper";
 enter.textContent = "Enter";
 enter.id = "enter";
+logo.id = "giphyLogo";
 gif.id = "sideye";
 
 let first = true;
@@ -22,7 +24,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 function mountGif(res) {
   setFont();
   gif.src = res;
+  logo.src = chrome.extension.getURL("icons/giphy.gif");
   wrapper.appendChild(gif);
+  wrapper.appendChild(logo);
   wrapper.appendChild(enter);
   document.body.appendChild(wrapper);
   document.body.classList.add("block");
